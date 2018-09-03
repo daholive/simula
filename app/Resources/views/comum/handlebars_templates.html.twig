@@ -1,0 +1,263 @@
+{# app/Resources/views/comum/handlebars_templates.html.twig #}
+
+<script id="option_list_template" type="text/x-handlebars-template">
+    <option value="">{{ '{{this.empty}}' }}</option>
+    {{ '{{#each data}}' }}
+    <option value = "{{ '{{this.id}}' }}">{{ '{{this.view}}' }}</option>
+    {{ '{{/each}}' }}
+</script>
+
+<script id="option_list_espaco_fisico" type="text/x-handlebars-template">
+    <option value="">{{ '{{this.empty}}' }}</option>
+    {{ '{{#each data}}' }}
+    <option value = "{{ '{{this.id}}' }}">{{ '{{this.nome}}' }}</option>
+    {{ '{{/each}}' }}
+</script>
+
+<script id="info_element_template" type="text/x-handlebars-template">
+    <div class="small-info">{{ '{{this.msg}}' }}</div>
+</script>
+
+<script id="error_ajax_msg" type="text/x-handlebars-template">
+    <div class="error">{{ '{{this.msg}}' }}</div>
+</script>
+
+<script id="warning_ajax_msg" type="text/x-handlebars-template">
+    <div class="warning">{{ '{{this.msg}}' }}</div>
+</script>
+
+<script id="ok_ajax_msg" type="text/x-handlebars-template">
+    <div class="info">{{ '{{this.msg}}' }}</div>
+</script>
+
+<script id="linha-posologia-medicamentos-template" type="text/x-handlebars-template">
+    <tr id="linha_posologia_{{ '{{this.index}}' }}">
+    <td style="font-weight: bold;" {{ '{{#if this.id}}data-id="{{this.id}}"{{/if}}' }}>
+
+    {{ '{{this.quantidade.valor}} {{this.quantidade.unidade}}' }}
+    {{ '{{#if this.frequencia.valor}}' }}, {% trans %}a_cada{% endtrans %} {{ '{{this.frequencia.valor}} {{this.frequencia.unidade}}{{/if}}' }}
+    {{ '{{#if this.duracao.valor}}' }}, {% trans %}durante{% endtrans %} {{ '{{this.duracao.valor}} {{this.duracao.unidade}}{{/if}}' }}
+    -
+    {{ '{{this.data}}' }} ({{ '{{#if this.momento.nome}}{{this.momento.nome}}{{else}}{{this.hora}}{{/if}}' }})
+    </td>
+    <td style="font-weight: bold;">
+    <button onclick="Prescricao.removePosologia({{ '{{this.index}}' }})" class="button remove notext" type="button" title="Remove" {{ '{{#if this.disabled}}' }}disabled="disabled"{{ '{{/if}}' }}></button>
+    </td>
+    </tr>
+</script>
+
+<script id="linha-posologia-exames-template" type="text/x-handlebars-template">
+    <tr id="linha_posologia_{{ '{{this.index}}' }}">
+    <td style="font-weight: bold;">
+    1 {% trans %}exame{% endtrans %} - 
+    {{ '{{this.data}}'}} ({{ '{{#if this.momento.nome}}{{this.momento.nome}}{{else}}{{this.hora}}{{/if}}'}})
+    </td>
+    <td style="font-weight: bold;">
+    <button onclick="Prescricao.removePosologia({{ '{{this.index}}' }})" class="button remove notext" type="button" title="Remove" {{ '{{#if this.disabled}}' }}disabled="disabled"{{ '{{/if}}' }}></button>
+    </td>
+    </tr>
+</script>
+
+<script id="linha-posologia-mfr-template" type="text/x-handlebars-template">
+    <tr id="linha_posologia_{{ '{{this.index}}' }}">
+    <td style="font-weight: bold;">
+    {{ '{{this.data}}'}} ({{ '{{this.quantidade}}'}} {{'sessoes'|trans}})
+    </td>
+    <td style="font-weight: bold;">
+    <button onclick="Prescricao.removePosologia({{ '{{this.index}}' }})" class="button remove notext" type="button" title="Remove" {{ '{{#if this.disabled}}' }}disabled="disabled"{{ '{{/if}}' }}></button>
+    </td>
+    </tr>
+</script>
+
+
+
+<script id="informacoes-paciente-template" type="text/x-handlebars-template">
+    <table width="100%">
+    <tr>
+    <td style="font-weight: bold;">
+    <a href="{{ minsa_url }}?m=dPpatients&amp;tab=vw_full_patients&amp;patient_id={{ '{{paciente.id}}' }}">
+    <span onmouseover="ObjectTooltip.createEx(this, 'CPatient-{{ '{{paciente.id}}' }}')">
+    {{ '{{paciente._string}}' }} &mdash; {{ '{{paciente.idade}}' }} {{ 'anos'|trans({}, 'messages') }}
+    </span>
+    </a>
+    </td>
+    </tr>
+    {# {{'{{#if episodios}}'}} #}
+    <tr>
+    <td class="text">
+    <strong>{{ 'episodios'|trans({}, 'messages') }}</strong>
+    <ul>
+    {{ '{{#each episodios}}' }}
+    <li>
+    <span onmouseover="ObjectTooltip.createEx(this, 'CSejour-{{ '{{this.id}}' }}')">
+    {{'{{this.data}}'}}
+    </span>
+    {{'<strong>{{this.tipo}}</strong>{{#if this.especialidade}} - {{this.especialidade}}{{/if}}'}}
+    </li>
+    {{ '{{else}}' }}
+    <li class="empty"> {{ 'nenhum_episodio_registado'|trans({}, 'messages') }}</li>
+    {{ '{{/each}}' }}
+    </ul>
+    </td>
+    </tr>
+    {# {{'{{/if}}'}} #}
+    {# {{'{{#if consultas}}'}} #}
+    <tr>
+    <td class="text">
+    <strong>{{ 'consultas'|trans({}, 'messages') }}</strong>
+    <ul>
+    {{ '{{#each consultas}}' }}
+    <li class="iconed-text {{ '{{this.tipo}}' }}" >
+    <span onmouseover="ObjectTooltip.createEx(this, 'CConsultation-{{ '{{this.id}}' }}')">
+    {{ '{{this.dataInicio}}' }} 
+    </span>
+    {{'{{this.tipo}}'}} {{ 'de'|trans({}, 'messages') }} {{'{{this.categoria}}'}} - {{ '{{this._profissionalString}}' }}
+    </li>
+    {{ '{{else}}' }}
+    <li class="empty">{{ 'nenhuma_consulta_registada'|trans({}, 'messages') }}</li>
+    {{ '{{/each}}' }}
+    </ul>
+    </td>
+    </tr>  
+    {#   {{'{{/if}}'}} #}
+    {#  {{'{{#if sessoes}}'}} #}
+    <tr>
+    <td class="text">
+    <strong>{{ 'sessoes'|trans({}, 'messages') }}</strong>
+    <ul>
+    {{ '{{#each sessoes}}' }}
+    <li class="iconed-text {{ '{{this.tipo}}' }}" >
+    <span onmouseover="ObjectTooltip.createEx(this, 'CConsultation-{{ '{{this.id}}' }}')">
+    {{ '{{this.data}}' }} 
+    </span>
+    {{'sessao'|trans({}, 'messages') }} {{ 'de'|trans({}, 'messages') }} {{'{{this.categoria}}'}} - {{ '{{this._profissionalString}}' }}
+    </li>
+    {{ '{{else}}' }}
+    <li class="empty">{{ 'nenhuma_consulta_registada'|trans({}, 'messages') }}</li>
+    {{ '{{/each}}' }}
+    </ul>
+    </td>
+    </tr>
+    {# {{'{{/if}}'}} #}
+    </table>
+</script>
+
+<script id="informacoes-lista-espera-template" type="text/x-handlebars-template">
+    <table width="100%">
+    <tr>
+    <td class="text">
+    <ul>
+    {{ '{{#each marcacoes}}' }}
+    <li>
+    {{ '{{this.servico}}' }} - {{ '{{this.profissional}}' }} - {{ '{{this.data}}' }} 
+    </li>
+    {{ '{{else}}' }}
+    <div class="empty"> {{ 'nao_existem_lista_espera_activas'|trans({}, 'messages') }}</div>
+    {{ '{{/each}}' }}
+    </ul>
+    </td>
+    </tr>
+    </table>
+</script>
+
+<script id="nova-agenda-mfr-lista-profissional" type="text/x-handlebars-template">
+    <tr>
+    <td>
+    <input type="hidden" id="formEditAgendaMfr_profissionais_{{'{{this.id}}'}}_id" value="{{'{{this.id}}'}}"
+    name="formEditAgendaMfr[profissionais][{{'{{this.id}}'}}][id]"/>
+    <button type="button" data-id="{{'{{this.id}}'}}" id="formEditAgendaMfr_profissionais_{{'{{this.id}}'}}_remover"
+    name="formEditAgendaMfr[profissionais][{{'{{this.id}}'}}][remover]" class="trash notext"></button>
+    <span id="formEditAgendaMfr_profissionais_{{'{{this.id}}'}}_nomeUtilizador">{{'{{this.nome}}'}}</span>
+    </td>
+    </tr>                                                
+</script>
+
+<script id="nova-agenda-mfr-lista-actividades" type="text/x-handlebars-template">
+    <tr>
+    <td style="width:100%; overflow:hidden">             
+    <input type="hidden" data-id="{{'{{this.actividadeId}}'}}" value="{{'{{this.actividadeId}}'}}" name="formEditAgendaMfr[actividades][{{'{{this.actividadeId}}'}}][actividade]"/>
+    <input type="checkbox" name="formEditAgendaMfr[actividades][{{'{{this.actividadeId}}'}}][checked]"
+    {{'{{#if this.checked}}checked="true"{{/if}}'}}
+    {{'{{#if this.disabled}}disabled="disabled"{{/if}}'}}
+    data-id="{{'{{this.actividadeId}}'}}"
+    data-type="{{'{{this.tipo}}'}}"
+    id="actividade_{{'{{this.actividadeId}}'}}_id">
+    <label for="actividade_{{'{{this.actividadeId}}'}}_id">{{'{{this.nome}}'}}</label>
+    </td>
+    <td>
+    <label for="formEditAgendaMfr_actividades_{{'{{this.actividadeId}}'}}_quantidade">        
+    {{'{{#if this.isConsulta}}'}}
+    {{'numero_consultas'|trans}}
+    {{'{{else}}'}}
+    {{'numero_vagas'|trans}}
+    {{'{{/if}}'}}
+    </label>
+    <input type="text" id="formEditAgendaMfr_actividades_{{'{{this.actividadeId}}'}}_quantidade"
+    name="formEditAgendaMfr[actividades][{{'{{this.actividadeId}}'}}][quantidade]"
+    value="{{'{{this.vagas}}'}}" 
+    {{'{{#if this.disabled}}disabled="disabled"{{/if}}'}}
+    data-id="{{'{{this.actividadeId}}'}}"
+    required="required" size="3" min="1" />
+    <scr{{'{{!}}'}}ipt>
+    Main.add(function() { 
+    $("formEditAgendaMfr_actividades_{{'{{this.actividadeId}}'}}_quantidade").addSpinner({min: 1}); 
+    });
+    </scr{{'{{!}}'}}ipt>
+    </td>
+    <td>
+    <label for="formEditAgendaMfr_actividades_{{'{{this.actividadeId}}'}}_duracao">
+    {{'duracao'|trans}}
+    </label>
+    <input type="text" id="formEditAgendaMfr_actividades_{{'{{this.actividadeId}}'}}_duracao" 
+    name="formEditAgendaMfr[actividades][{{'{{this.actividadeId}}'}}][duracao]" 
+    value="{{'{{this.duracao}}'}}" 
+    {{'{{#if this.disabled}}disabled="disabled"{{/if}}'}}
+    data-id="{{'{{this.actividadeId}}'}}"
+    required="required" size="3" min="1" />
+    <scr{{'{{!}}'}}ipt>
+    Main.add(function() { $("formEditAgendaMfr_actividades_{{'{{this.actividadeId}}'}}_duracao").addSpinner({min: 1}); });
+    </scr{{'{{!}}'}}ipt>
+    (min.)
+    {{'{{#if isConsulta}}'}}
+    <select id="formEditAgendaMfr_actividades_{{'{{this.actividadeId}}'}}_ordem" 
+    {{'{{#ifCond this.actividadeId "==" 0}}disabled="disabled"{{/ifCond}}'}}
+    name="formEditAgendaMfr[actividades][{{'{{this.actividadeId}}'}}][ordem]">         
+    <option value="0">1</option>
+    <option value="1">2</option>
+    <option value="2" {{'{{#ifCond this.actividadeId "==" 0}}selected="true"{{/ifCond}}'}} {{'{{#if this.actividadeId}}disabled="disabled"{{/if}}'}}>3</option>
+    </select>
+    {{'{{/if}}'}}
+    </td> 
+    </tr>                                                
+</script>
+
+<script id="prescricao-lista-posologia-elemento-template" type="text/x-handlebars-template">
+    <li id="formPrescricaoMedicamentos_posologia_{{'{{this.id}}'}}">
+    <button onclick="Prescricao.removerPosologia(this);" class="trash notext" name="formPrescricaoMedicamentos[posologia][{{'{{this.id}}'}}][remover]"
+    id="formPrescricaoMedicamentos_posologia_{{'{{this.id}}'}}_remover" type="button">Remover</button>
+    <input type="hidden" value="{{'{{this.idMedicamento}}'}}" name="formPrescricaoMedicamentos[posologia][{{'{{this.id}}'}}][medicamento]" id="formPrescricaoMedicamentos_posologia_{{'{{this.id}}'}}_medicamento">
+    <input type="hidden" value="{{'{{this.duracao}}'}}" name="formPrescricaoMedicamentos[posologia][{{'{{this.id}}'}}][duracao]" id="formPrescricaoMedicamentos_posologia_{{'{{this.id}}'}}_duracao">
+    <input type="hidden" value="{{'{{this.quantidade}}'}}" name="formPrescricaoMedicamentos[posologia][{{'{{this.id}}'}}][quantidade]" id="formPrescricaoMedicamentos_posologia_{{'{{this.id}}'}}_quantidade">
+    <input type="hidden" value="{{'{{this.idFrequencia}}'}}" name="formPrescricaoMedicamentos[posologia][{{'{{this.id}}'}}][frequencia]" id="formPrescricaoMedicamentos_posologia_{{'{{this.id}}'}}_frequencia">
+    <input type="hidden" value="{{'{{this.idMomentoUnitario}}'}}" name="formPrescricaoMedicamentos[posologia][{{'{{this.id}}'}}][momentoUnitario]" id="formPrescricaoMedicamentos_posologia_{{'{{this.id}}'}}_momentoUnitario">
+    <input type="hidden" value="{{'{{this.comentario}}'}}" name="formPrescricaoMedicamentos[posologia][{{'{{this.id}}'}}][comentario]" id="formPrescricaoMedicamentos_posologia_{{'{{this.id}}'}}_comentario">
+    <span>
+    {{'{{this.quantidade}}'}}x {{'{{this.medicamento}}'}} {{'durante'|trans}} {{'{{this.duracao}}'}} {{'dias'|trans}}, {{'{{#if this.frequencia}}'}}{{'{{this.frequencia}}'}}{{'{{else}}'}}{{'{{this.momentoUnitario}}'}}{{'{{/if}}'}}
+    </span>
+    {{'{{#if this.comentario}}'}}
+    <img src="{{ asset('images/buttons/comment.png') }}"
+    onmouseover="ObjectTooltip.createDOM(this, 'lista-comentario-prescricao-medicamento-{{'{{this.id}}'}}');">
+    <div style="display: none;" id="lista-comentario-prescricao-medicamento-{{'{{this.id}}'}}">
+    {{'{{this.comentario}}'}}
+    </div>
+    {{'{{/if}}'}}
+    </li>
+</script>
+
+<script id="print-report-form-template" type="text/x-handlebars-template">
+<form action="{{'{{this.action}}'}}" method="POST" target="_blank" id="_dummyDownloadForm" name="_dummyDownload">
+{{'{{#each params}}'}}
+    <input type="hidden" name="{{'{{@key}}'}}" value="{{'{{ this }}'}}"/>
+{{'{{/each}}'}}
+</form>
+</script>

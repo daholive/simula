@@ -1,0 +1,133 @@
+{# app/Resources/views/comum/javascripts.html.pt.twig #}
+
+<script type="text/javascript">
+    __loadStart = (new Date).getTime();
+    var
+            Preferences = "",
+            User = "",
+            sessionLocked = "",
+            Mediboard = "",
+            FALSE = false,
+            TRUE = true,
+            App = {
+                m: "",
+                a: "",
+                tab: "",
+                action: "",
+                actionType: "",
+                dialog: "",
+                config: {
+                    log_js_errors: ""
+                },
+                readonly: "",
+                touchDevice: ""
+            };
+    Global = {
+        locale: '{{ app.request.locale }}',
+        assets: {
+            images: {
+                paciente_omissao: '{{ asset('images/identity_male.png') }}',
+                calendario: '{{ asset('images/icons/calendar.gif') }}',
+                btnCalendario: '{{ asset('images/icons/btn_calendar.png') }}',
+                btnCalendario2: '{{ asset('images/icons/btn_calendar2.png') }}',
+                tempo: '{{ asset('images/icons/time.png') }}'
+            }
+        },
+        configs: {
+            dateTimeFormat: '{{ conf_app_data_hora_mask }}',
+            dateFormat: '{{ conf_app_data_mask }}',
+            timeFormat: '{{ conf_app_hora_mask }}'
+        }
+    };
+    
+    Global.routes = {
+        {% embed ':comum:javascripts.global.routes.html.twig' %}{% endembed %}
+        minsa_url: '{{ minsa_url }}',
+        ahms_url: '{{ahms_url}}'
+    };
+    
+    Global.locales = {
+        {% embed ':comum:javascripts.global.locales.html.twig' %}{% endembed %}
+        __END_TAG_OBJECT: '' /* por causa do ultimo elemento do ficheiro ter , */
+    };
+    Global.constantes = {
+        {% embed ':comum:javascripts.global.constantes.html.twig' %}{% endembed %}
+        __END_TAG_OBJECT: '' /* por causa do ultimo elemento do ficheiro ter , */
+    };
+    
+    FunctionsToCall = [];
+
+</script>
+
+{% javascripts
+    'js/libs/jquery/jquery-1.10.2.js'
+    'js/libs/jquery/jquery-ui-1.10.3.custom.min.js'
+    output='js/compiled/jquery.js' %} {% endjavascripts %}
+<script type="text/javascript" charset="UTF-8" src="{{ asset('js/compiled/jquery.js') }}"></script>
+
+{% javascripts
+    'js/libs/handlebars/handlebars.js'
+    'js/libs/handlebars/handlebars.helpers.js'
+    output='js/compiled/handlebars.js' %} {% endjavascripts %}
+<script type="text/javascript" charset="UTF-8" src="{{ asset('js/compiled/handlebars.js') }}"></script>
+
+{% javascripts 
+    'js/libs/mediboard/printf.js'
+    'js/libs/mediboard/stacktrace.js'
+    'js/libs/mediboard/lib/prototype.js'
+    'js/libs/mediboard/console.js'
+    'js/libs/mediboard/lib/scriptaculous/scriptaculous.js'
+    'js/libs/mediboard/lib/scriptaculous/builder.js'
+    'js/libs/mediboard/lib/scriptaculous/effects.js'
+    'js/libs/mediboard/lib/scriptaculous/dragdrop.js'
+    'js/libs/mediboard/lib/scriptaculous/controls.js'
+    'js/libs/mediboard/lib/scriptaculous/slider.js'
+    'js/libs/mediboard/lib/scriptaculous/sound.js'
+    'js/libs/mediboard/lib/prototypex.js'
+    'js/libs/mediboard/lib/datepicker/date.js'
+    'js/libs/mediboard/lib/datepicker/datepicker.js'
+    'js/libs/mediboard/lib/datepicker/datepicker-locale-pt_PT.js'
+    'js/libs/mediboard/lib/livepipe/livepipe.js'
+    'js/libs/mediboard/lib/livepipe/tabs.js'
+    'js/libs/mediboard/lib/livepipe/window.js'
+    'js/libs/mediboard/lib/parser.js'
+    'js/libs/mediboard/treeview.js'
+    'js/libs/mediboard/common.js'
+    'js/libs/mediboard/functions.js'
+    'js/libs/mediboard/tooltip.js'
+    'js/libs/mediboard/controls.js'
+    'js/libs/mediboard/cookies.js'
+    'js/libs/mediboard/url.js'
+    'js/libs/mediboard/forms.js'
+    'js/libs/mediboard/checkForms.js'
+    'js/libs/mediboard/exObject.js'
+    'js/libs/mediboard/mbObject.js'
+    'js/libs/mediboard/patselector.js'
+    'js/libs/mediboard/lib/document.js'
+    'js/libs/mediboard/lib/modele_selector.js'
+    'js/libs/mediboard/lib/files.js'
+    'js/libs/mediboard/lib/browserDetect.js'
+    'js/libs/mediboard/lib/patient.js'
+    output='js/compiled/mediboard.js' %} {% endjavascripts %}
+<script type="text/javascript" src="{{ asset('js/compiled/mediboard.js') }}"></script>
+
+{% javascripts
+    'js/libs/date.js'
+    'js/libs/hinclude/hinclude.js'
+    output='js/compiled/libs.js' %}
+{% endjavascripts %}
+<script type="text/javascript" src="{{ asset('js/compiled/libs.js') }}"></script>
+
+{% javascripts 
+    'js/libs/flotr/lib/*.js' 
+    'js/libs/flotr/*.js' 
+    output='js/compiled/flotr.js' %}
+{% endjavascripts %}
+<script type="text/javascript" src="{{ asset('js/compiled/flotr.js') }}"></script>
+
+{% javascripts
+    'js/comum.js'
+    'js/jsProxies.js'
+    'js/print.js'
+    output='js/compiled/ahms.js' %} {% endjavascripts %}
+<script type="text/javascript" charset="UTF-8" src="{{ asset('js/compiled/ahms.js') }}"></script>

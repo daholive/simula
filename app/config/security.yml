@@ -1,0 +1,14 @@
+security:
+    providers:
+        administrators:
+            entity: { class: AhmsComumBundle:Utilizador, property: username } 
+    firewalls:
+        ahms_secured:
+            pattern:   ^/
+            stateless: true
+            ahms:      true
+            form_login:
+                login_path: %minsa_url%%minsa_path%
+
+#    access_control:
+#        - { path: ^/, roles: ROLE_USER }
