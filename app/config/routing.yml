@@ -1,0 +1,117 @@
+#ahms_desenvolvimento:
+#    resource: "@AhmsDesenvolvimentoBundle/Resources/config/routing.yml"
+#    prefix:   /
+
+ahms_utilizadores:
+    resource: "@AhmsUtilizadoresBundle/Resources/config/routing.yml"
+    prefix:   /Utilizadores
+
+ahms_agenda:
+    resource: "@AhmsAgendaBundle/Resources/config/routing.yml"
+    prefix:   /agenda
+
+ahms_impressoras:
+    resource: "@AhmsImpressorasBundle/Resources/config/routing.yml"
+    prefix:   /impressoras
+
+ahms_mcdt:
+    resource: "@AhmsMCDTBundle/Resources/config/routing.yml"
+    prefix:   /MCDT
+
+ahms_stock:
+    resource: "@AhmsStockBundle/Resources/config/routing.yml"
+    prefix:   /Stock
+
+ahms_mfr:
+    resource: "@AhmsMFRBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ahms_internamento:
+    resource: "@AhmsInternamentoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ahms_facturacao:
+    resource: "@AhmsFacturacaoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ahms_documentos:
+    resource: "@AhmsDocumentosBundle/Resources/config/routing.yml"
+    prefix:   /documentos
+
+ahms_print:
+    resource: "@AhmsPrintBundle/Resources/config/routing.yml"
+    prefix:   /relatorios
+
+ahms_prescricao:
+    resource: "@AhmsPrescricaoBundle/Resources/config/routing.yml"
+    prefix:   /prescricao
+    
+ahms_cim10:
+    resource: "@AhmsCim10Bundle/Resources/config/routing.yml"
+    prefix:   /
+
+ahms_recursos_humanos:
+    resource: "@AhmsRecursosHumanosBundle/Resources/config/routing.yml"
+    prefix:   /RecursosHumanos
+
+senhas:
+    resource: "@SenhasBundle/Resources/config/routing.yml"
+    prefix:   /
+
+kiosk:
+    resource: "@KioskBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ahms_consultas_externas:
+    resource: "@AhmsConsultasExternasBundle/Resources/config/routing.yml"
+    prefix:   /ConsultasExternas
+    
+ahms_hospital:
+    resource: "@AhmsHospitalBundle/Resources/config/routing.yml"
+    prefix:   /hospital
+
+ahms_bloco:
+    resource: "@AhmsBlocoBundle/Resources/config/routing.yml"
+    prefix:   /bloco
+
+ahms_comum:
+    resource: "@AhmsComumBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ahms_widgets:
+    resource: "@AhmsWidgetsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ahms_configuration:
+    resource: "@AhmsConfiguracaoBundle/Resources/config/routing.yml"
+    prefix:   /configuracao
+
+ahms_homepage:
+    pattern:    /
+    defaults:   { _controller: AhmsComumBundle:Default:home }
+    requirements:
+        _method:    GET
+
+ahms_urgencia:
+    resource: "@AhmsUrgenciaBundle/Resources/config/routing.yml"
+    prefix:   /Urgencia
+    
+ahms_paciente:
+    resource: "@AhmsPacienteBundle/Resources/config/routing.yml"
+    prefix:   /paciente
+
+ahms_aconselhamento:
+    resource: "@AhmsAconselhamentoBundle/Resources/config/routing.yml"
+    prefix:   /aconselhamento
+
+login:
+    path:       /login
+    defaults:   { _controller: AhmsSecurityBundle:Security:login }
+login_check:
+    path:       /login_check
+logout:
+    path:       /logout
+    
+MESDJasperReportBundle:
+    resource: "@MesdJasperReportBundle/Resources/config/routing.yml"
+    prefix: /reportbundle

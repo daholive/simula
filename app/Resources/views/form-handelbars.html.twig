@@ -1,0 +1,12 @@
+{# app/Resources/views/form-handelbars.html.twig #}
+
+{% verbatim %}
+<script id="form_widget_simple_template" type="text/x-handlebars-template">
+    <div class="input-control {{type}}" data-role="input-control">
+        <input type="{{type}}" value="{{value}}"/>
+        {{#ifCond type '==' 'file'}}
+        <button class="btn-file" type="button"></button>
+        {{/ifCond}}
+    </div>
+</script>
+{% endverbatim %}

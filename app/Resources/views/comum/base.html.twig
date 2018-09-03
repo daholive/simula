@@ -1,0 +1,81 @@
+{# app/Resources/views/comum/base.html.twig #}
+
+<!DOCTYPE html>
+<head>
+    <!-- Content-Type meta tags need to be the first in the page (even before title) -->
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />   
+    <title>{% block page_title "" %}</title>
+
+    <meta name="Description" content="MINSAHR+: Sistema de Gestão Hospitalar" />
+    <meta name="Version" content="1.0.0.0" />
+
+    <link type="image/ico" rel="shortcut icon" href="{{ asset('images/icons/favicon.ico') }}" />
+
+    {% stylesheets 'css/mediboard/*' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+
+    {% block stylesheet %}
+    {% endblock stylesheet %}
+
+    {% embed ':comum:javascripts.html.twig' %}{% endembed %}
+    {% block bundle_javascript %}
+    {% endblock bundle_javascript %}
+	
+	<script>
+		var relogio_inatividade = 1;
+		
+		function iniciarContadorInatividade() {
+			var p = document.getElementById("desktop");
+			p.onmouseover = function(){
+				relogio_inatividade = 1
+			};
+			contadorInatividade();
+		}
+		
+		function contadorInatividade() {
+			
+			var time = new Date();
+			var outraData = new Date();
+			if (relogio_inatividade)
+				outraData.setMinutes(time.getMinutes() + relogio_inatividade);
+			
+			if (time.getMinutes() == outraData.getMinutes()) {
+				location.href = "http://192.168.8.1/index.php?logout=-1";
+			}
+			
+			relogio_inatividade = 0;
+			setInterval(contadorInatividade, 60000);//1 minuto
+		}
+		//onload="iniciarContadorInatividade()" id="desktop"
+	</script>
+	
+</head>
+
+<body class=" desktop  " >
+    {% block body %}
+    {% endblock body %}
+
+    {% block javascript %}
+    {% endblock javascript %}
+
+    {% embed ':comum:handlebars_templates.html.twig' %}{% endembed %}
+    {% block handlebars_template %}
+    {% endblock handlebars_template %}
+    <script>
+        Main.add(function() {
+        {% for msg in app.session.flashbag.get(constant('Ahms\\ComumBundle\\Service\\MensagemUtilizadorService::INFO')) %} 
+            SystemMessage.notify('<div class="info">{{ msg }}</div>',true);
+        {% endfor %}
+        {% for msg in app.session.flashbag.get(constant('Ahms\\ComumBundle\\Service\\MensagemUtilizadorService::WARN')) %} 
+            SystemMessage.notify('<div class="warning">{{ msg }}</div>',true);
+        {% endfor %}
+        {% for msg in app.session.flashbag.get(constant('Ahms\\ComumBundle\\Service\\MensagemUtilizadorService::ERRO')) %} 
+            SystemMessage.notify('<div class="error">{{ msg }}</div>',true);
+        {% endfor %}
+        });
+    </script>
+</body>
+</html>
